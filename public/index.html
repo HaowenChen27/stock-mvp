@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Strength MVP</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>盯盘强弱 MVP</h1>
+        <p>自动识别股票 / ETF 强弱与走势标签</p>
+      </div>
+      <div class="header-actions">
+        <button id="refreshBtn">刷新</button>
+        <button id="syncBtn">同步真实行情</button>
+        <button id="toggleAutoBtn" class="secondary">开启自动同步</button>
+        <button id="resetBtn" class="secondary">重置示例数据</button>
+      </div>
+    </header>
+
+    <section class="grid two">
+      <div class="card">
+        <h2>板块强弱</h2>
+        <div id="sectors"></div>
+      </div>
+      <div class="card">
+        <h2>对比结论</h2>
+        <div id="comparisons"></div>
+      </div>
+    </section>
+
+    <section class="card toolbar-card">
+      <div class="toolbar-row">
+        <div>
+          <strong>自动同步状态：</strong>
+          <span id="autoStatus">关闭</span>
+        </div>
+        <div>
+          <strong>同步间隔：</strong>
+          <select id="intervalSelect">
+            <option value="15000">15 秒</option>
+            <option value="30000" selected>30 秒</option>
+            <option value="60000">60 秒</option>
+          </select>
+        </div>
+        <div>
+          <strong>最后同步：</strong>
+          <span id="lastSyncAt">--</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>标的雷达</h2>
+        <span id="updatedAt"></span>
+      </div>
+      <div id="symbols" class="symbols"></div>
+    </section>
+
+    <section class="card">
+      <h2>手动更新行情（MVP 模拟）</h2>
+      <p class="muted">现在已支持腾讯公开行情接口同步真实数据；这里的表单仍可用于手动覆盖和验证评分模型。</p>
+      <form id="updateForm" class="form-grid">
+        <label>代码<input name="code" placeholder="601669" required /></label>
+        <label>现价<input name="price" type="number" step="0.001" required /></label>
+        <label>今开<input name="open" type="number" step="0.001" required /></label>
+        <label>最高<input name="high" type="number" step="0.001" required /></label>
+        <label>最低<input name="low" type="number" step="0.001" required /></label>
+        <label>昨收<input name="prevClose" type="number" step="0.001" required /></label>
+        <label>备注：此表单不再依赖成交额<input value="仅价格行为模型" disabled /></label>
+        <label>分时轨迹(逗号分隔)<input name="timeline" placeholder="6.22,6.27,6.25,6.30,6.32" required /></label>
+        <div class="full-width">
+          <button type="submit">更新并重算</button>
+        </div>
+      </form>
+    </section>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

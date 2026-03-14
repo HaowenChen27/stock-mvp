@@ -1,0 +1,5 @@
+.venv/
+data/
+current-page.png
+.DS_Store
+node_modules/
